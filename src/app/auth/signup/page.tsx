@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { useAuth } from "@/app/contexts/AuthContext";
+import { LoadingSpinner } from "@/app/components/LoadingSpinner";
 
 export default function SignUpPage() {
   const [email, setEmail] = useState("");
