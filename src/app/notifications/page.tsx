@@ -1,77 +1,52 @@
-import { HelpCircle, Book, MessageCircle, Mail } from "lucide-react";
+import { Bell, AlertCircle, CheckCircle } from "lucide-react";
 
-export default function HelpPage() {
+const notifications = [
+  {
+    id: 1,
+    type: "alert",
+    message: "Water levels low in Section 2",
+    icon: AlertCircle,
+  },
+  {
+    id: 2,
+    type: "info",
+    message: "Tomatoes ready for harvest",
+    icon: CheckCircle,
+  },
+  {
+    id: 3,
+    type: "alert",
+    message: "Pest detected in Section 1",
+    icon: AlertCircle,
+  },
+];
+
+export default function NotificationsPage() {
   return (
-    <div className="max-w-5xl mx-auto space-y-6 text-white">
-      <div className="glass-effect p-8">
-        <h1 className="text-3xl font-bold mb-4">Help Center</h1>
-        <p className="text-white/80">Find answers and get support for Plot</p>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-6">
-        <div className="glass-effect p-8 space-y-4">
-          <h2 className="text-2xl font-semibold flex items-center gap-2">
-            <HelpCircle className="w-6 h-6" />
-            FAQs
-          </h2>
-          <ul className="space-y-2">
-            {[
-              "How do I start my virtual plot?",
-              "Can I change my plot size?",
-              "How often should I water my plants?",
-              "What do the different icons mean?",
-              "How can I track my plants' growth?",
-            ].map((question, index) => (
-              <li
-                key={index}
-                className="p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-colors"
-              >
-                <a href="#" className="block">
-                  {question}
-                </a>
-              </li>
-            ))}
-          </ul>
+    <div className="max-w-2xl mx-auto">
+      <h1 className="text-3xl font-bold mb-8">Notifications</h1>
+      <div className="glass-effect p-6 rounded-3xl">
+        <div className="space-y-4">
+          {notifications.map((notification) => (
+            <div
+              key={notification.id}
+              className="flex items-start p-3 bg-white/10 rounded-lg"
+            >
+              <notification.icon
+                className={`w-5 h-5 mr-3 ${
+                  notification.type === "alert"
+                    ? "text-red-400"
+                    : "text-green-400"
+                }`}
+              />
+              <span>{notification.message}</span>
+            </div>
+          ))}
         </div>
-
-        <div className="glass-effect p-8 space-y-4">
-          <h2 className="text-2xl font-semibold flex items-center gap-2">
-            <Book className="w-6 h-6" />
-            Guides
-          </h2>
-          <ul className="space-y-2">
-            {[
-              "Getting Started with Plot",
-              "Understanding Plant Care Basics",
-              "Maximizing Your Virtual Garden",
-              "Troubleshooting Common Issues",
-              "Advanced Plot Management Techniques",
-            ].map((guide, index) => (
-              <li
-                key={index}
-                className="p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-colors"
-              >
-                <a href="#" className="block">
-                  {guide}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      <div className="glass-effect p-8 space-y-6">
-        <h2 className="text-2xl font-semibold mb-4">Contact Support</h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          <button className="flex items-center justify-center gap-2 p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
-            <MessageCircle className="w-6 h-6" />
-            Live Chat Support
-          </button>
-          <button className="flex items-center justify-center gap-2 p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
-            <Mail className="w-6 h-6" />
-            Email Support
-          </button>
-        </div>
+        <button className="mt-6 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors flex items-center">
+          <Bell className="w-4 h-4 mr-2" />
+          Mark All as Read
+        </button>
       </div>
     </div>
   );

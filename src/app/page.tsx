@@ -1,18 +1,31 @@
-'use client'
+"use client";
 
-import { Leaf, Cloud, Zap, Box, ShoppingBag, FolderOpen, Users } from 'lucide-react'
-import { Card } from './components/Card'
+import {
+  Leaf,
+  Cloud,
+  Zap,
+  Box,
+  ShoppingBag,
+  
+  FolderOpen,
+  Users,
+} from "lucide-react";
+import { Card } from "./components/Card";
 
 export default function Home() {
   return (
     <div className="max-w-7xl mx-auto space-y-8">
       <h1 className="text-4xl font-bold text-white mb-8">Home</h1>
-      
+
       <div className="glass-effect p-6 rounded-3xl mb-8 bg-gradient-to-br from-purple-500/30 to-pink-500/30 backdrop-blur-lg border border-white/30">
-        <h2 className="text-2xl font-semibold text-white mb-2">Welcome back, Gardener!</h2>
-        <p className="text-white/80">Your virtual garden is thriving. Here's what's happening today:</p>
+        <h2 className="text-2xl font-semibold text-white mb-2">
+          Welcome back, Gardener!
+        </h2>
+        <p className="text-white/80">
+          Your virtual garden is thriving. Here's what's happening today:
+        </p>
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
         <div className="md:col-span-3">
           <Card
@@ -23,7 +36,7 @@ export default function Home() {
             showReview={true}
           />
         </div>
-        
+
         <div className="md:col-span-3">
           <Card
             title="Remote Care"
@@ -33,7 +46,7 @@ export default function Home() {
             showReview={true}
           />
         </div>
-        
+
         <div className="md:col-span-2">
           <Card
             title="Performance"
@@ -53,7 +66,7 @@ export default function Home() {
             showReview={true}
           />
         </div>
-        
+
         <div className="md:col-span-2">
           <Card
             title="My Store"
@@ -85,6 +98,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

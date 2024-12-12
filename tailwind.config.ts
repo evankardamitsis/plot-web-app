@@ -1,15 +1,16 @@
-import type { Config } from 'tailwindcss'
+// Tailwind configuration file
+// Defines theme customization, plugins, and content paths
+// Includes animation utilities and custom styling
 
-export default {
-  darkMode: ["class"],
+import { Config } from 'tailwindcss'
+import animate from 'tailwindcss-animate'
+
+const config: Config = {
+  // Content paths for Tailwind to scan for classes
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    './src/**/*.{js,ts,jsx,tsx}',
   ],
-  theme: {
-    extend: {},
-  },
-  plugins: [require("tailwindcss-animate")],
-} satisfies Config
+  plugins: [animate],
+}
+
+export default config

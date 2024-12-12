@@ -7,14 +7,11 @@ import {
   Sprout,
   Cloud,
   LineChart,
-  ShoppingBag,
-  FolderOpen,
-  Users,
   Settings,
   HelpCircle,
 } from "lucide-react";
 
-const navItems = [
+const mainNavItems = [
   {
     name: "Home",
     icon: Home,
@@ -39,24 +36,9 @@ const navItems = [
     href: "/growth-tracking",
     bgColor: "from-orange-600/50 to-amber-700/50",
   },
-  {
-    name: "My Store",
-    icon: ShoppingBag,
-    href: "/my-store",
-    bgColor: "from-pink-600/50 to-rose-700/50",
-  },
-  {
-    name: "Resources",
-    icon: FolderOpen,
-    href: "/resources",
-    bgColor: "from-teal-600/50 to-emerald-700/50",
-  },
-  {
-    name: "Community",
-    icon: Users,
-    href: "/community",
-    bgColor: "from-indigo-600/50 to-blue-700/50",
-  },
+];
+
+const utilityNavItems = [
   {
     name: "Settings",
     icon: Settings,
@@ -75,22 +57,52 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="w-24 flex flex-col items-center py-8 gap-8 glass-effect border-r border-white/20">
-      {navItems.map((item) => {
-        const isActive = pathname === item.href;
-        return (
-          <Link
-            key={item.name}
-            href={item.href}
-            className={`flex flex-col items-center justify-center w-20 h-20 rounded-2xl transition-all ${
-              isActive ? "bg-white/30 shadow-lg scale-110" : "hover:bg-white/20"
-            }`}
-          >
-            <item.icon className="w-8 h-8 mb-2 text-white" />
-            <span className="text-xs text-white text-center">{item.name}</span>
-          </Link>
-        );
-      })}
+    <div className="w-28 flex flex-col items-center py-12 px-4 glass-effect border-r border-white/20">
+      {/* Main navigation items */}
+      <div className="flex-1 flex flex-col gap-10">
+        {mainNavItems.map((item) => {
+          const isActive = pathname === item.href;
+          return (
+            <Link
+              key={item.name}
+              href={item.href}
+              className={`flex flex-col items-center justify-center w-20 h-20 rounded-2xl transition-all ${
+                isActive
+                  ? "bg-white/30 shadow-lg scale-110"
+                  : "hover:bg-white/20"
+              }`}
+            >
+              <item.icon size={32} className="mb-2 text-white" />
+              <span className="text-xs text-white text-center">
+                {item.name}
+              </span>
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* Utility navigation items */}
+      <div className="flex flex-col gap-6 mt-auto">
+        {utilityNavItems.map((item) => {
+          const isActive = pathname === item.href;
+          return (
+            <Link
+              key={item.name}
+              href={item.href}
+              className={`flex flex-col items-center justify-center w-16 h-16 rounded-xl transition-all ${
+                isActive
+                  ? "bg-white/30 shadow-lg scale-105"
+                  : "hover:bg-white/20"
+              }`}
+            >
+              <item.icon size={24} className="mb-1 text-white" />
+              <span className="text-[10px] text-white text-center">
+                {item.name}
+              </span>
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 }

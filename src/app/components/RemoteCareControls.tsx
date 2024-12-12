@@ -8,7 +8,10 @@ export default function RemoteCareControls() {
   const [lighting, setLighting] = useState(false);
   const [ventilation, setVentilation] = useState(false);
 
-  const toggleControl = (control, setter) => {
+  const toggleControl = (
+    control: boolean,
+    setter: (value: boolean) => void
+  ) => {
     setter(!control);
     // Here you would typically send a request to your IoT devices
     console.log(`${control ? "Deactivating" : "Activating"} ${setter.name}`);
