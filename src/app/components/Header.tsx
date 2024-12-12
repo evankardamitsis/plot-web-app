@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { User, Bell, LogOut } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
+import Tooltip from "./ui/Tooltip";
 
 export default function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -12,7 +13,6 @@ export default function Header() {
   const { signOut } = useAuth();
   const router = useRouter();
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -37,18 +37,25 @@ export default function Header() {
   };
 
   return (
-    <header className="glass-effect p-4 flex justify-end items-center space-x-4 w-[97%] m-auto sticky top-4 z-10 mb-6">
-      <Link href="/notifications" className="glass-icon">
-        <Bell className="w-6 h-6 text-white" />
-      </Link>
-
-      <div className="relative" ref={dropdownRef}>
-        <button
-          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          className="glass-icon"
+    <header className="flex justify-end items-center space-x-4 mb-6">
+      <Tooltip text="Notifications">
+        <Link
+          href="/notifications"
+          className="p-2 hover:bg-white/10 rounded-lg transition-colors"
         >
-          <User className="w-6 h-6 text-white" />
-        </button>
+          <Bell className="w-5 h-5 text-white/80 hover:text-white" />
+        </Link>
+      </Tooltip>
+      
+      <div className="relative" ref={dropdownRef}>
+        <Tooltip text="Account Menu">
+          <button 
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+          >
+            <User className="w-5 h-5 text-white/80 hover:text-white" />
+          </button>
+        </Tooltip>
 
         {isDropdownOpen && (
           <div className="absolute right-0 mt-2 w-48 rounded-lg shadow-lg glass-effect border border-white/10">

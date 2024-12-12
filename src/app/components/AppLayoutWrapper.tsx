@@ -22,7 +22,7 @@ export default function AppLayoutWrapper({
       <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black">
         <div className="flex">
           <Sidebar />
-          <main className="flex-1">
+          <main className="flex-1 ml-36">
             <div className="p-8">
               <Header />
               {children}
