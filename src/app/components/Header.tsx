@@ -36,14 +36,17 @@ export default function Header() {
     }
   };
 
+  const iconButtonClasses = "w-9 h-9 flex items-center justify-center rounded-lg transition-all hover:bg-white/10 group";
+  const iconClasses = "w-5 h-5 text-white/80 transition-colors group-hover:text-white";
+
   return (
-    <header className="flex justify-end items-center space-x-4 mb-6">
+    <header className="flex justify-end items-center space-x-3 mb-6">
       <Tooltip text="Notifications">
         <Link
           href="/notifications"
-          className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+          className={iconButtonClasses}
         >
-          <Bell className="w-5 h-5 text-white/80 hover:text-white" />
+          <Bell className={iconClasses} />
         </Link>
       </Tooltip>
       
@@ -51,9 +54,9 @@ export default function Header() {
         <Tooltip text="Account Menu">
           <button 
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+            className={iconButtonClasses}
           >
-            <User className="w-5 h-5 text-white/80 hover:text-white" />
+            <User className={iconClasses} />
           </button>
         </Tooltip>
 
