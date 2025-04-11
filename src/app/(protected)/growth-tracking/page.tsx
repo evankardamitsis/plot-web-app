@@ -1,5 +1,5 @@
-import GrowthTimeline from "../components/GrowthTimeline";
-import PlantIssues from "../components/PlantIssues";
+import GrowthTimeline from "@/app/components/GrowthTimeline";
+import PlantIssues from "@/app/components/PlantIssues";
 
 export default function GrowthTrackingPage() {
   return (

@@ -1,5 +1,4 @@
-import PlotManager from "../components/PlotManager";
-
+import PlotManager from "@/app/components/PlotManager";
 export default function VirtualPlotPage() {
   return (
     <div className="max-w-7xl mx-auto">
