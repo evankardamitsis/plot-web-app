@@ -2,20 +2,26 @@
 
 import { useState } from "react";
 
-const plotSections = [
-  { id: 1, name: "Vegetables", color: "bg-green-300" },
-  { id: 2, name: "Fruits", color: "bg-red-300" },
-  { id: 3, name: "Flowers", color: "bg-yellow-300" },
+interface Section {
+  id: number;
+  name: string;
+  color: string;
+}
+
+const sections: Section[] = [
+  { id: 1, name: "Vegetables", color: "bg-green-500" },
+  { id: 2, name: "Fruits", color: "bg-yellow-500" },
+  { id: 3, name: "Herbs", color: "bg-blue-500" },
+  { id: 4, name: "Flowers", color: "bg-pink-500" },
 ];
 
 export default function VirtualPlot() {
-  const [selectedSection, setSelectedSection] = useState(null);
+  const [selectedSection, setSelectedSection] = useState<number | null>(null);
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <h3 className="text-lg font-semibold mb-4">Your Virtual Plot</h3>
-      <div className="grid grid-cols-3 gap-4">
-        {plotSections.map((section) => (
+    <div className="space-y-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {sections.map((section) => (
           <button
             key={section.id}
             className={`${section.color} p-4 rounded-md transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500`}
@@ -26,10 +32,12 @@ export default function VirtualPlot() {
         ))}
       </div>
       {selectedSection && (
-        <div className="mt-4 p-4 bg-gray-100 rounded-md">
-          <p>
-            Details for{" "}
-            {plotSections.find((s) => s.id === selectedSection)?.name}
+        <div className="glass-card p-6">
+          <h2 className="text-2xl font-semibold mb-4">
+            {sections.find((s) => s.id === selectedSection)?.name}
+          </h2>
+          <p className="text-gray-300">
+            Select plants to add to your {sections.find((s) => s.id === selectedSection)?.name.toLowerCase()} section.
           </p>
         </div>
       )}

@@ -115,9 +115,9 @@ export default function LoginPage() {
           {loading ? <LoadingSpinner /> : "Login"}
         </button>
       </form>
-      <p className="mt-4 text-white/60 text-center">
-        Don't have an account?{" "}
-        <Link href="/auth/signup" className="text-white hover:underline">
+      <p className="text-sm text-gray-600">
+        Don&apos;t have an account?{' '}
+        <Link href="/auth/register" className="text-green-600 hover:text-green-700">
           Sign up
         </Link>
       </p>

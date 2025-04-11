@@ -4,7 +4,13 @@ import { useState, useCallback } from "react";
 import { DndProvider, useDrag, useDrop } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-const plantTypes = [
+interface Plant {
+  id: string;
+  name: string;
+  icon: string;
+}
+
+const plantTypes: Plant[] = [
   { id: "tomato", name: "Tomato", icon: "🍅" },
   { id: "carrot", name: "Carrot", icon: "🥕" },
   { id: "lettuce", name: "Lettuce", icon: "🥬" },
@@ -12,7 +18,13 @@ const plantTypes = [
   { id: "pepper", name: "Pepper", icon: "🫑" },
 ];
 
-const PlantItem = ({ id, name, icon }) => {
+interface PlantItemProps {
+  id: string;
+  name: string;
+  icon: string;
+}
+
+const PlantItem = ({ id, name, icon }: PlantItemProps) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "plant",
     item: { id, name, icon },
@@ -23,10 +35,9 @@ const PlantItem = ({ id, name, icon }) => {
 
   return (
     <div
-      ref={drag}
-      className={`glass-card p-4 flex items-center space-x-2 cursor-move ${
-        isDragging ? "opacity-50" : "opacity-100"
-      }`}
+      ref={drag as any}
+      className={`glass-card p-4 flex items-center space-x-2 cursor-move ${isDragging ? "opacity-50" : "opacity-100"
+        }`}
     >
       <span className="text-2xl">{icon}</span>
       <span className="text-white">{name}</span>
@@ -34,10 +45,18 @@ const PlantItem = ({ id, name, icon }) => {
   );
 };
 
-const PlotCell = ({ x, y, plant, onDrop, onRemove }) => {
+interface PlotCellProps {
+  x: number;
+  y: number;
+  plant: Plant | null;
+  onDrop: (x: number, y: number, item: Plant) => void;
+  onRemove: (x: number, y: number) => void;
+}
+
+const PlotCell = ({ x, y, plant, onDrop, onRemove }: PlotCellProps) => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "plant",
-    drop: (item) => onDrop(x, y, item),
+    drop: (item: Plant) => onDrop(x, y, item),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
@@ -51,11 +70,10 @@ const PlotCell = ({ x, y, plant, onDrop, onRemove }) => {
 
   return (
     <div
-      ref={drop}
+      ref={drop as any}
       onClick={handleClick}
-      className={`w-20 h-20 border border-white/20 rounded-md flex items-center justify-center ${
-        isOver ? "bg-white/20" : plant ? "bg-white/10" : "bg-transparent"
-      } transition-colors cursor-pointer`}
+      className={`w-20 h-20 border border-white/20 rounded-md flex items-center justify-center ${isOver ? "bg-white/20" : plant ? "bg-white/10" : "bg-transparent"
+        } transition-colors cursor-pointer`}
     >
       {plant && <span className="text-4xl">{plant.icon}</span>}
     </div>
@@ -63,9 +81,11 @@ const PlotCell = ({ x, y, plant, onDrop, onRemove }) => {
 };
 
 export default function PlotManager() {
-  const [plot, setPlot] = useState(Array(5).fill(Array(5).fill(null)));
+  const [plot, setPlot] = useState<(Plant | null)[][]>(
+    Array(5).fill(null).map(() => Array(5).fill(null))
+  );
 
-  const handleDrop = useCallback((x, y, item) => {
+  const handleDrop = useCallback((x: number, y: number, item: Plant) => {
     setPlot((prevPlot) => {
       const newPlot = prevPlot.map((row) => [...row]);
       newPlot[y][x] = item;
@@ -73,7 +93,7 @@ export default function PlotManager() {
     });
   }, []);
 
-  const handleRemove = useCallback((x, y) => {
+  const handleRemove = useCallback((x: number, y: number) => {
     setPlot((prevPlot) => {
       const newPlot = prevPlot.map((row) => [...row]);
       newPlot[y][x] = null;

@@ -6,13 +6,17 @@ import {
   Zap,
   Box,
   ShoppingBag,
-  
+
   FolderOpen,
   Users,
 } from "lucide-react";
 import { Card } from "./components/Card";
+import { useAuth } from './contexts/AuthContext'
+import Link from 'next/link'
 
 export default function Home() {
+  const { user } = useAuth()
+
   return (
     <div className="max-w-7xl mx-auto space-y-8">
       <h1 className="text-4xl font-bold text-white mb-8">Home</h1>
@@ -96,6 +100,46 @@ export default function Home() {
             showReview={true}
           />
         </div>
+      </div>
+
+      <div className="glass-card p-6">
+        <h1 className="text-3xl font-bold mb-4">Welcome to Plot</h1>
+        <p className="text-gray-300 mb-6">
+          Your personal garden assistant to help you track, manage, and grow your plants.
+        </p>
+        {!user ? (
+          <div className="space-y-4">
+            <p className="text-gray-300">
+              Get started by creating an account or signing in.
+            </p>
+            <div className="flex gap-4">
+              <Link
+                href="/auth/register"
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              >
+                Sign Up
+              </Link>
+              <Link
+                href="/auth/login"
+                className="px-4 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors"
+              >
+                Sign In
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            <p className="text-gray-300">
+              Welcome back, {user.email}! Let&apos;s check on your garden.
+            </p>
+            <Link
+              href="/virtual-plot"
+              className="inline-block px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            >
+              Go to Virtual Plot
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

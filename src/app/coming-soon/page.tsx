@@ -20,7 +20,7 @@ export default function ComingSoon() {
                     Coming Soon
                 </h1>
                 <p className="text-xl md:text-2xl text-gray-600 mb-8">
-                    We're working hard to bring you an amazing experience. Stay tuned!
+                    We&apos;re working hard to bring you an amazing experience. Stay tuned!
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <a
