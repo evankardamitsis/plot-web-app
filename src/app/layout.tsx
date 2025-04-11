@@ -5,12 +5,13 @@ import { AppProvider } from "./contexts/AppContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import AppLayoutWrapper from "./components/AppLayoutWrapper";
+import { Toaster } from 'react-hot-toast'
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Plot",
-  description: "Virtual Plot Management System",
+  title: "Plot - Your Personal Garden Assistant",
+  description: "Track, manage, and grow your garden with Plot",
 };
 
 export default function RootLayout({
@@ -22,11 +23,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
-          <NotificationProvider>
-            <AppProvider>
+          <Toaster />
+          <AppProvider>
+            <NotificationProvider>
               <AppLayoutWrapper>{children}</AppLayoutWrapper>
-            </AppProvider>
-          </NotificationProvider>
+            </NotificationProvider>
+          </AppProvider>
         </AuthProvider>
       </body>
     </html>
