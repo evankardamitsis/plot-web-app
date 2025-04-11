@@ -8,16 +8,22 @@ export async function middleware(req: NextRequest) {
   const supabase = createMiddlewareClient<Database>({ req, res })
   const { data: { session } } = await supabase.auth.getSession()
 
-  // Define public paths
-  const publicPaths = ['/auth/login', '/auth/signup']
-  const isPublicPath = publicPaths.some(path => req.nextUrl.pathname.startsWith(path))
+  // Get the current path
+  const path = req.nextUrl.pathname
 
-  if (!session && !isPublicPath) {
-    return NextResponse.redirect(new URL('/auth/login', req.url))
+  // Define public paths that don't require authentication
+  const isPublicPath = 
+    path.startsWith('/(public)') || // All routes in the (public) group
+    path.startsWith('/auth')        // All auth routes
+
+  // If it's a public path, allow access regardless of session
+  if (isPublicPath) {
+    return res
   }
 
-  if (session && isPublicPath) {
-    return NextResponse.redirect(new URL('/', req.url))
+  // For protected routes, check authentication
+  if (!session) {
+    return NextResponse.redirect(new URL('/auth/login', req.url))
   }
 
   return res

@@ -1,9 +1,9 @@
 'use client'
 
 import { usePathname } from "next/navigation"
-import ProtectedRoute from "./ProtectedRoute"
-import Sidebar from "./Sidebar"
+import { AuthProvider } from "../contexts/AuthContext"
 import Header from "./Header"
+import Sidebar from "./Sidebar"
 
 export default function AppLayoutWrapper({
   children,
@@ -11,25 +11,20 @@ export default function AppLayoutWrapper({
   children: React.ReactNode
 }) {
   const pathname = usePathname()
+  const isPublicPage = pathname === '/coming-soon' || pathname === '/'
   const isAuthPage = pathname.startsWith('/auth')
 
-  if (isAuthPage) {
-    return <>{children}</>
-  }
-
   return (
-    <ProtectedRoute>
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black">
-        <div className="flex">
-          <Sidebar />
-          <main className="flex-1 ml-36">
-            <div className="p-8">
-              <Header />
-              {children}
-            </div>
-          </main>
-        </div>
+    <AuthProvider>
+      <div className={`h-screen ${isPublicPage || isAuthPage ? 'overflow-hidden' : ''} bg-gradient-to-br from-gray-900 to-black text-white`}>
+        {!isPublicPage && !isAuthPage && <Sidebar />}
+        <main className={`${!isPublicPage && !isAuthPage ? 'ml-24' : ''} h-full ${isPublicPage || isAuthPage ? '' : 'overflow-auto'}`}>
+          {!isPublicPage && !isAuthPage && <Header />}
+          <div className={`${isPublicPage || isAuthPage ? 'h-full flex items-center justify-center' : 'p-8'}`}>
+            {children}
+          </div>
+        </main>
       </div>
-    </ProtectedRoute>
+    </AuthProvider>
   )
 } 

@@ -2,7 +2,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { AppProvider } from "./contexts/AppContext";
-import { AuthProvider } from "./contexts/AuthContext";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import AppLayoutWrapper from "./components/AppLayoutWrapper";
 import { Toaster } from 'react-hot-toast'
@@ -20,16 +19,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <AuthProvider>
-          <Toaster />
-          <AppProvider>
-            <NotificationProvider>
-              <AppLayoutWrapper>{children}</AppLayoutWrapper>
-            </NotificationProvider>
-          </AppProvider>
-        </AuthProvider>
+    <html lang="en" className="h-full">
+      <body className={`${inter.className} h-full overflow-hidden`}>
+        <AppProvider>
+          <NotificationProvider>
+            <AppLayoutWrapper>
+              {children}
+            </AppLayoutWrapper>
+          </NotificationProvider>
+        </AppProvider>
+        <Toaster />
       </body>
     </html>
   );
